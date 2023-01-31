@@ -38,6 +38,13 @@ const FormUseReducer = () => {
         if (action.type == "firstName" && action.playload.length < 3 && action.playload.length > 0 ) errorAux = "Nombre debe tener mas de tres caracteres";
         if (action.type == "lastName" && action.playload.length < 3 ) errorAux = "Apellido debe tener mas de tres caracteres";
 
+        //if para el password
+        if (action.type == "email" && action.playload.length < 3 ) errorAux = "Email debe ser mayor a dos caracteres";
+
+        // if de contra
+        if (action.type == "contra1" && action.playload.length < 7 ) errorAux = "Contrasena debe tener al menos 8 caracteres";
+
+        // if de contra 2
         return{
             // se usa el spread operator. copia del estado
             ...state,
@@ -74,21 +81,30 @@ const FormUseReducer = () => {
         </div>
         <div className="form-group">
             <label htmlFor="exampleInputApellido">Apellido</label>
-            <input onChange={adminForm} type="text" className="form-control" id="exampleInputApellido" aria-describedby="emailHelp" placeholder="Apellido" />
+            <input onChange={adminForm} type="text" name='lastName' className="form-control" id="exampleInputApellido" aria-describedby="emailHelp" placeholder="Apellido" />
             {/* validar apellido */}
             {/* {(getApellido.length < 3 && getApellido !== "") ? <p className = 'text-danger'> Apellido debe tener mas de tres caracteres</p>: null} */}
+            {state.lastName.error !== null && (<p className='text-danger'>{state.lastName.error}</p>)}
         </div>
+
+        {/* inicio del email */}
         <div className="form-group">
             <label htmlFor="exampleInputEmail1">Email</label>
-            <input onChange={adminForm} type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email" />
+            <input onChange={adminForm} name ="email" type="email" name = "email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email" />
+            {state.email.error !== null && (<p className='text-danger'> {state.email.error}</p>)}
 
 
         </div>
+
+        {/* inicio de contra1 */}
         <div className="form-group">
             <label htmlFor="exampleInputPassword1">Password</label>
-            <input onChange={adminForm} type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
+            <input onChange={adminForm} name= "contra1" type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
             {/* validar password */}
             {/* {(getPassword.length < 7 ) ? <p className = 'text-danger'> La Contraseña es demasiado corta </p>: null} */}
+
+
+            {/* {state.contra1.error !== null &&  (<p className='text-danger'>{state.contra1.error}</p>)} */}
             
         </div>
         <div className="form-group">
@@ -102,7 +118,7 @@ const FormUseReducer = () => {
         <button type="submit" className="btn btn-primary">Submit</button>
     </form>
     
-    <div>
+    {/* <div>
         <p>Nombre: </p>
         <p>Apellido: </p>
         <p>Email: </p>
@@ -112,9 +128,12 @@ const FormUseReducer = () => {
 
         
 
-    </div>
+    </div> */}
     </>
     )
 }
+
+
+//verificacion de version
 
 export default FormUseReducer
